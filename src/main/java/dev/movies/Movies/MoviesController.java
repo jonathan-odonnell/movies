@@ -3,6 +3,7 @@ package dev.movies.Movies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/movies")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MoviesController {
     @Autowired 
     private MoviesService moviesService;
@@ -20,8 +22,8 @@ public class MoviesController {
     public ResponseEntity<List<Movies>> getAllMovies() {
         return new ResponseEntity<List<Movies>>(moviesService.allMovies(), HttpStatus.OK);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity <Optional<Movies>> getSingleMovie(@PathVariable String imdbid) {
+    @GetMapping("/{imdbid}")
+    public ResponseEntity<Optional<Movies>> getSingleMovie(@PathVariable String imdbid) {
          return new ResponseEntity<Optional<Movies>>(moviesService.singleMovie(imdbid), HttpStatus.OK);
     }
 }
